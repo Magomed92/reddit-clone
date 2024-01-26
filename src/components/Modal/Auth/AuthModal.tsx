@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -9,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import { authModalState } from "@/src/atoms/authModalAtom";
+import { OAuthCredential } from "firebase/auth/cordova";
 
 const AuthModal: React.FC = () => {
   const [modalState, setModalState] = useRecoilState(authModalState);
@@ -21,10 +23,30 @@ const AuthModal: React.FC = () => {
       <Modal isOpen={modalState.open} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>
+            {modalState.view === "login" && "Login"}
+            {modalState.view === "signup" && "Sign Up"}
+            {modalState.view === "resetPassword" && "Reset Password"}
+          </ModalHeader>
           <ModalCloseButton />
-          <ModalBody></ModalBody>
-          hello world
+          <ModalBody
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Flex
+              direction="column"
+              align="center"
+              justify="center"
+              width="70%"
+              border="1px solid black"
+            >
+              {/* <OAuthButtons/> */}
+              {/* <AuthInputs/> */}
+              {/* <ResetPassword/> */}
+            </Flex>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>
