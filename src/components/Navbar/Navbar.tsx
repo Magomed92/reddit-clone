@@ -15,10 +15,10 @@ const Navbar: React.FC = () => {
           display={{ base: "none", md: "unset" }}
         />
       </Flex>
-      
       <SearchInput />
       <RightContent />
     </Flex>
   );
 };
+
 export default Navbar;

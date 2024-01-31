@@ -7,10 +7,13 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Text,
 } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import { authModalState } from "@/src/atoms/authModalAtom";
-import { OAuthCredential } from "firebase/auth/cordova";
+
+import AuthInputs from "./AuthInputs";
+import OAuthButton from "./OAuthButtons";
 
 const AuthModal: React.FC = () => {
   const [modalState, setModalState] = useRecoilState(authModalState);
@@ -23,8 +26,8 @@ const AuthModal: React.FC = () => {
       <Modal isOpen={modalState.open} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            {modalState.view === "login" && "Login"}
+          <ModalHeader textAlign="center">
+            {modalState.view === "login" && "Log In"}
             {modalState.view === "signup" && "Sign Up"}
             {modalState.view === "resetPassword" && "Reset Password"}
           </ModalHeader>
@@ -34,16 +37,14 @@ const AuthModal: React.FC = () => {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
+            pb={6}
           >
-            <Flex
-              direction="column"
-              align="center"
-              justify="center"
-              width="70%"
-              border="1px solid black"
-            >
-              {/* <OAuthButtons/> */}
-              {/* <AuthInputs/> */}
+            <Flex direction="column" align="center" justify="center" width="70%">
+              <OAuthButton />
+              <Text color="gray.500" fontWeight={700}>
+                OR
+              </Text>
+              <AuthInputs />
               {/* <ResetPassword/> */}
             </Flex>
           </ModalBody>
