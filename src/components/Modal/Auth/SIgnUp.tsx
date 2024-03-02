@@ -2,6 +2,9 @@ import { authModalState } from "@/src/atoms/authModalAtom";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase/clientApp";
+import { FIREBASE_ERRORS } from "@/src/firebase/errors";
 
 type SIgnUpProps = {};
 
@@ -12,10 +15,38 @@ const SIgnUp: React.FC<SIgnUpProps> = () => {
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState("");
 
-  const onSubmit = () => {};
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSignUpForm((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    userError,
+  ] = useCreateUserWithEmailAndPassword(auth);
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (error) {
+      setError("");
+    }
+    if (signUpForm.password !== signUpForm.confirmPassword) {
+      setError("Passwords do not match!!!");
+      return;
+    }
+    createUserWithEmailAndPassword(
+      signUpForm.email,
+      signUpForm.password
+    );
+  };
+
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSignUpForm((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   return (
@@ -47,7 +78,7 @@ const SIgnUp: React.FC<SIgnUpProps> = () => {
         mb={2}
         placeholder="password"
         _placeholder={{ color: "gray.300" }}
-        type="password "
+        type="password"
         onChange={onChange}
         _hover={{
           bg: "white",
@@ -81,7 +112,20 @@ const SIgnUp: React.FC<SIgnUpProps> = () => {
         }}
         bg="gray.50"
       />
-      <Button width="100%" height="35px" type="submit" mt={2} mb={2}>
+      <Text textAlign="center" color="red" fontSize="13px">
+        {error ||
+          FIREBASE_ERRORS[
+            userError?.message as keyof typeof FIREBASE_ERRORS
+          ]}
+      </Text>
+      <Button
+        width="100%"
+        height="35px"
+        type="submit"
+        mt={2}
+        mb={2}
+        isLoading={loading}
+      >
         Sign Up
       </Button>
       <Flex fontSize="9pt" justifyContent="center">
