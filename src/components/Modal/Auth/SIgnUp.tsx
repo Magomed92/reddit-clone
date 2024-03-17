@@ -17,12 +17,8 @@ const SIgnUp: React.FC<SIgnUpProps> = () => {
   });
   const [error, setError] = useState("");
 
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    userError,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, userError] =
+    useCreateUserWithEmailAndPassword(auth);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,15 +30,10 @@ const SIgnUp: React.FC<SIgnUpProps> = () => {
       setError("Passwords do not match!!!");
       return;
     }
-    createUserWithEmailAndPassword(
-      signUpForm.email,
-      signUpForm.password
-    );
+    createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
   };
 
-  const onChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSignUpForm((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
@@ -114,9 +105,7 @@ const SIgnUp: React.FC<SIgnUpProps> = () => {
       />
       <Text textAlign="center" color="red" fontSize="13px">
         {error ||
-          FIREBASE_ERRORS[
-            userError?.message as keyof typeof FIREBASE_ERRORS
-          ]}
+          FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}
       </Text>
       <Button
         width="100%"
