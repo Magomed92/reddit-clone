@@ -10,8 +10,6 @@ type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
-  console.log(setAuthModalState);
-  // const [modalState, setModalState] = useRecoilState(authModalState);
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
