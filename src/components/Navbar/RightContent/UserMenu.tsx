@@ -36,6 +36,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         borderRadius={4}
         _hover={{ outline: "1px solid", outlineColor: "gray.200" }}
       >
+        
         <Flex align="center">
           <Flex align="center">
             {user ? (
