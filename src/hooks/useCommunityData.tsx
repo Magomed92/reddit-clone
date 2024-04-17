@@ -33,7 +33,7 @@ const useCommunityData = () => {
       return;
     }
     setLoading(true);
-    if (isJoined) {
+    if (isJoined) {+
       leaveCommunity(communityData.id);
       return;
     }
