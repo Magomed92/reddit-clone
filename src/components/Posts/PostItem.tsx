@@ -79,8 +79,8 @@ const PostItem: React.FC<PostItemProps> = ({
         <Stack spacing={1} p="10px">
           <Stack direction="row" spacing={0.6} align="center" fontSize="9pt">
             <Text>
-              Posted by u/{post.creatorDIsplayName} <br />
-              {moment(new Date(post.createdAt?.seconds * 1000)).fromNow()}
+              {`Posted by u/${post.creatorDIsplayName}
+             ${moment(new Date(post.createdAt?.seconds * 1000)).fromNow()}`}
             </Text>
           </Stack>
           <Text fontSize="12pt" fontWeight="600">
